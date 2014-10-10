@@ -17,7 +17,7 @@ namespace ReplicatorService.ReplicationServiceManagers
             StartClient();
         }
 
-        public override void SendUpdates(ReplicatorDto replicatorDto)
+        protected override void SendUpdatesInternal(ReplicatorDto replicatorDto)
         {
             _pipeProxy.SendUpdates(replicatorDto);
         }

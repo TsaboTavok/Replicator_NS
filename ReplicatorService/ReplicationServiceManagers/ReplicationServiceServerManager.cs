@@ -50,7 +50,7 @@ namespace ReplicatorService.ReplicationServiceManagers
             }
         }
 
-        public override void SendUpdates(ReplicatorDto replicatorDto)
+        protected override void SendUpdatesInternal(ReplicatorDto replicatorDto)
         {
             _replicatorService.SendUpdates(replicatorDto);
         }

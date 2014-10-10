@@ -36,8 +36,7 @@ namespace ReplicatorTests
 
                 client1.CallbackMock.Verify(r => r.UpdatesCallback(It.IsAny<ReplicatorDto>()), Times.Once);
                 client2.CallbackMock.Verify(r => r.UpdatesCallback(It.IsAny<ReplicatorDto>()), Times.Once);
-                //Пока отпраляем всем, делаем тест зеленым.
-                server.CallbackMock.Verify(r => r.UpdatesCallback(It.IsAny<ReplicatorDto>()), Times.Once);
+                server.CallbackMock.Verify(r => r.UpdatesCallback(It.IsAny<ReplicatorDto>()), Times.Never);
             }
         }
 
@@ -53,10 +52,45 @@ namespace ReplicatorTests
 
                 client1.CallbackMock.Verify(r => r.UpdatesCallback(It.IsAny<ReplicatorDto>()), Times.Once);
                 server.CallbackMock.Verify(r => r.UpdatesCallback(It.IsAny<ReplicatorDto>()), Times.Once);
-                //Пока отпраляем всем, делаем тест зеленым.
-                client2.CallbackMock.Verify(r => r.UpdatesCallback(It.IsAny<ReplicatorDto>()), Times.Once);
+                client2.CallbackMock.Verify(r => r.UpdatesCallback(It.IsAny<ReplicatorDto>()), Times.Never);
             }
+        }
 
+        [TestMethod]
+        public void Test_Client_Disconnects()
+        {
+            using (var server = new ReplicationServiceTestServerHelper())
+            using (var client1 = new ReplicationServiceTestClientHelper())
+            using (var client2 = new ReplicationServiceTestClientHelper())
+            {
+                var client3 = new ReplicationServiceTestClientHelper();
+                client3.Manager.Dispose();
+
+                client2.Manager.SendUpdates(new ReplicatorDto());
+
+                client1.CallbackMock.Verify(r => r.UpdatesCallback(It.IsAny<ReplicatorDto>()), Times.Once);
+                server.CallbackMock.Verify(r => r.UpdatesCallback(It.IsAny<ReplicatorDto>()), Times.Once);
+                client2.CallbackMock.Verify(r => r.UpdatesCallback(It.IsAny<ReplicatorDto>()), Times.Never);
+                client3.CallbackMock.Verify(r => r.UpdatesCallback(It.IsAny<ReplicatorDto>()), Times.Never);
+            }
+        }
+
+        [TestMethod]
+        public void Test_Host_Disconnects_First()
+        {
+            var server = new ReplicationServiceTestServerHelper();
+            var client1 = new ReplicationServiceTestClientHelper();
+            var client2 = new ReplicationServiceTestClientHelper();
+            
+            client2.Manager.SendUpdates(new ReplicatorDto());
+
+            client1.CallbackMock.Verify(r => r.UpdatesCallback(It.IsAny<ReplicatorDto>()), Times.Once);
+            server.CallbackMock.Verify(r => r.UpdatesCallback(It.IsAny<ReplicatorDto>()), Times.Once);
+            client2.CallbackMock.Verify(r => r.UpdatesCallback(It.IsAny<ReplicatorDto>()), Times.Never);
+
+            server.Dispose();
+            client1.Dispose();
+            client2.Dispose();
         }
     }
 }

@@ -57,7 +57,8 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IReplicatorServiceCallback.cs" />
+    <Compile Include="Callback\EchoAwareReplicatorCallback.cs" />
+    <Compile Include="Callback\IReplicatorServiceCallback.cs" />
     <Compile Include="ReplicationServiceManagers\IReplicationServiceManager.cs" />
     <Compile Include="ReplicationServiceManagers\ReplicationServiceClientManager.cs" />
     <Compile Include="ReplicationServiceManagers\ReplicationServiceManagerBase.cs" />

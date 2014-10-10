@@ -1,10 +1,14 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace ReplicatorService
 {
     [DataContract]
     public class ReplicatorDto
     {
+        [DataMember]
+        internal Guid CallerGuid { get; set; }
+
         bool boolValue = true;
         string stringValue = "Hello ";
 
