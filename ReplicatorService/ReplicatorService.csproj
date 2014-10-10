@@ -58,7 +58,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IReplicatorServiceCallback.cs" />
-    <Compile Include="ReplicationServiceManagers\ReplicationServiceManager.cs" />
+    <Compile Include="ReplicationServiceManagers\IReplicationServiceManager.cs" />
+    <Compile Include="ReplicationServiceManagers\ReplicationServiceClientManager.cs" />
+    <Compile Include="ReplicationServiceManagers\ReplicationServiceManagerBase.cs" />
+    <Compile Include="ReplicationServiceManagers\ReplicationServiceServerManager.cs" />
     <Compile Include="ReplicatorDto.cs" />
     <Compile Include="IReplicatorService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

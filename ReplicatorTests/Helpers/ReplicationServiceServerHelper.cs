@@ -1,41 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Moq;
+﻿using Moq;
 using ReplicatorService;
 using ReplicatorService.ReplicationServiceManagers;
 
 namespace ReplicatorTests.Helpers
 {
-    public class ReplicationServiceHelperBase
+    public abstract class ReplicationServiceTestHelperBase
     {
-        public ReplicationServiceHelperBase()
+        protected ReplicationServiceTestHelperBase()
         {
-            Manager = new ReplicationServiceManager();
+            Manager = CreateReplicationServiceManager();
             CallbackMock = new Mock<IReplicatorServiceCallback>();
             Manager.Init(CallbackMock.Object);
         }
 
-        public ReplicationServiceManager Manager { get; private set; }
+        protected abstract ReplicationServiceManagerBase CreateReplicationServiceManager();
+
+        public ReplicationServiceManagerBase Manager { get; private set; }
         public Mock<IReplicatorServiceCallback> CallbackMock { get; private set; }
     }
 
-    public class ReplicationServiceServerHelper : ReplicationServiceHelperBase
+    public class ReplicationServiceTestServerHelper : ReplicationServiceTestHelperBase
     {
-        public ReplicationServiceServerHelper()
-            : base()
+        public ReplicationServiceTestServerHelper()
         {
-            Manager.HostServer();
+        }
+
+        protected override ReplicationServiceManagerBase CreateReplicationServiceManager()
+        {
+            return  new ReplicationServiceServerManager();
         }
     }
-    public class ReplicationServiceClientHelper : ReplicationServiceHelperBase
+    public class ReplicationServiceTestClientHelper : ReplicationServiceTestHelperBase
     {
-        public ReplicationServiceClientHelper()
-            : base()
+        public ReplicationServiceTestClientHelper()
         {
-            Manager.CreateClient();
+        }
+
+        protected override ReplicationServiceManagerBase CreateReplicationServiceManager()
+        {
+            return new ReplicationServiceClientManager();
         }
     }
 }

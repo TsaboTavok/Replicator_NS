@@ -12,9 +12,10 @@ namespace ReplicatorService
     {
         private List<IReplicatorServiceCallback> _addedReplicatorCallbackList;
 
-        public ReplicatorService()
+        public ReplicatorService(IReplicatorServiceCallback locaCallback)
         {
             _addedReplicatorCallbackList = new List<IReplicatorServiceCallback>();
+            _addedReplicatorCallbackList.Add(locaCallback);
         }
 
         public void RegisterForUpdates()
