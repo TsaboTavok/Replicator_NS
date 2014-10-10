@@ -1,10 +1,11 @@
-﻿using Moq;
+﻿using System;
+using Moq;
 using ReplicatorService;
 using ReplicatorService.ReplicationServiceManagers;
 
 namespace ReplicatorTests.Helpers
 {
-    public abstract class ReplicationServiceTestHelperBase
+    public abstract class ReplicationServiceTestHelperBase : IDisposable
     {
         protected ReplicationServiceTestHelperBase()
         {
@@ -17,6 +18,11 @@ namespace ReplicatorTests.Helpers
 
         public ReplicationServiceManagerBase Manager { get; private set; }
         public Mock<IReplicatorServiceCallback> CallbackMock { get; private set; }
+
+        public void Dispose()
+        {
+            Manager.Dispose();
+        }
     }
 
     public class ReplicationServiceTestServerHelper : ReplicationServiceTestHelperBase

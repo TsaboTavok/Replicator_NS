@@ -39,5 +39,15 @@ namespace ReplicatorService.ReplicationServiceManagers
             }
         }
 
+        public override void DisposeInternal()
+        {
+            try
+            {
+                _pipeProxy.Unregister();
+            }
+            catch (CommunicationException ex)
+            {
+            }
+        }
     }
 }

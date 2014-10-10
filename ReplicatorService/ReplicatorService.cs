@@ -24,13 +24,14 @@ namespace ReplicatorService
                      GetCallbackChannel<IReplicatorServiceCallback>();
             if (callback != null)
             {
-                this._addedReplicatorCallbackList.Add(callback);
+                _addedReplicatorCallbackList.Add(callback);
             }
         }
 
         public void Unregister()
         {
-            throw new NotImplementedException();
+            var callback = OperationContext.Current.GetCallbackChannel<IReplicatorServiceCallback>();
+            _addedReplicatorCallbackList.Remove(callback);
         }
 
         public void SendUpdates(ReplicatorDto replicatorDto)
