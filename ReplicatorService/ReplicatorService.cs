@@ -7,6 +7,7 @@ using System.Text;
 
 namespace ReplicatorService
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class ReplicatorService : IReplicatorService
     {
         public void RegisterForUpdates()
