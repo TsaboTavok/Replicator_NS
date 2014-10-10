@@ -1,4 +1,5 @@
 ﻿using System;
+using ReplicatorService.Callback;
 
 namespace ReplicatorService.ReplicationServiceManagers
 {

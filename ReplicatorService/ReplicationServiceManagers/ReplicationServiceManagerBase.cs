@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Configuration;
-using System.ServiceModel;
 using System.ServiceModel.Configuration;
-using System.Threading.Tasks;
 using ReplicatorService.Callback;
 
 namespace ReplicatorService.ReplicationServiceManagers

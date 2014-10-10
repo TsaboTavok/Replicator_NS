@@ -1,6 +1,6 @@
 ﻿using System;
 using Moq;
-using ReplicatorService;
+using ReplicatorService.Callback;
 using ReplicatorService.ReplicationServiceManagers;
 
 namespace ReplicatorTests.Helpers
