@@ -42,6 +42,7 @@
     <Compile Include="IReplicationManager.cs" />
     <Compile Include="ReplicationManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReplicationManagerFactory.cs" />
     <Compile Include="ReplicatorDtoBuilder.cs" />
     <Compile Include="ReplicatorManagerFactory.cs" />
   </ItemGroup>

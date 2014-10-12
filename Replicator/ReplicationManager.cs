@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Dynamic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ReplicatorService;
 using ReplicatorService.Callback;
 using ReplicatorService.ReplicationServiceManagers;
@@ -17,8 +13,8 @@ namespace Replicator
         private readonly Dictionary<string, INotifyPropertyChanged> _guidDictionary = new Dictionary<string, INotifyPropertyChanged>();
         private readonly Dictionary<INotifyPropertyChanged, string> _objectsDictionary = new Dictionary<INotifyPropertyChanged, string>();
 
-        private IReplicationServiceManager _serviceManager;
-        private ReplicatorDtoBuilder _dtoBuilder;
+        private readonly IReplicationServiceManager _serviceManager;
+        private readonly ReplicatorDtoBuilder _dtoBuilder;
 
         internal ReplicationManager(IReplicationServiceManager serviceManager)
         {
@@ -49,14 +45,13 @@ namespace Replicator
             }
         }
 
-        public void RemoveObject(INotifyPropertyChanged objectToRemove)
-        {
-            
-        }
-
         public void UpdatesCallback(ReplicatorDto replicatorDto)
         {
-            throw new NotImplementedException();
+            if (_guidDictionary.ContainsKey(replicatorDto.ObjectKey))
+            {
+                var changingObject =_guidDictionary[replicatorDto.ObjectKey];
+                changingObject.GetType().GetProperty(replicatorDto.PropertyName).SetValue(changingObject, replicatorDto.Value);
+            }
         }
     }
 }
