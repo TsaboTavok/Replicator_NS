@@ -38,7 +38,8 @@ namespace ReplicatorService.ReplicationServiceManagers
         {
             try
             {
-                _pipeProxy.Unregister();
+                if(_pipeProxy != null)
+                    _pipeProxy.Unregister();
             }
             catch (CommunicationException ex)
             {

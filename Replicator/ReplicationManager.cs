@@ -19,6 +19,7 @@ namespace Replicator
         internal ReplicationManager(IReplicationServiceManager serviceManager)
         {
             _serviceManager = serviceManager;
+            serviceManager.Init(this);
             _dtoBuilder = new ReplicatorDtoBuilder();
         }
 

@@ -57,7 +57,8 @@ namespace ReplicatorService.ReplicationServiceManagers
 
         public override void DisposeInternal()
         {
-            _host.Close();
+            if(_host != null)
+                _host.Close();
         }
     }
 }
