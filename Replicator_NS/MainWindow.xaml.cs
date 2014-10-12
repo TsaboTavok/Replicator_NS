@@ -10,7 +10,6 @@ namespace Replicator_NS
         public MainWindow()
         {
             InitializeComponent();
-            var x = ((MainWindowVeiwModel) DataContext).ReplicationObject;
         }
     }
 }

@@ -8,7 +8,7 @@ using Replicator;
 
 namespace Replicator_NS
 {
-    public class MainWindowVeiwModel
+    public class MainWindowVeiwModel : IDisposable
     {
         public ICommand AddClientCommand { get; set; }
 
@@ -31,6 +31,11 @@ namespace Replicator_NS
             ReplicationObject = new ReplicationObject();
             _replicationManager.AttachObject(ReplicationObject,"object1");
 
+        }
+
+        public void Dispose()
+        {
+            _replicationManager.Dispose();
         }
     }
 }

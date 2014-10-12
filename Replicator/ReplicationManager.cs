@@ -7,7 +7,7 @@ using ReplicatorService.ReplicationServiceManagers;
 
 namespace Replicator
 {
-    internal class ReplicationManager : IReplicatorServiceCallback, IReplicationManager
+    internal class ReplicationManager : IReplicatorServiceCallback, IReplicationManager, IDisposable
     {
         private readonly object _locker = new object();
         private readonly Dictionary<string, INotifyPropertyChanged> _guidDictionary = new Dictionary<string, INotifyPropertyChanged>();
@@ -71,6 +71,11 @@ namespace Replicator
                         .SetValue(changingObject, replicatorDto.Value);
                 }
             }   
+        }
+
+        public void Dispose()
+        {
+            _serviceManager.Dispose();
         }
     }
 }
