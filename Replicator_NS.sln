@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReplicatorService", "Replic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReplicatorTests", "ReplicatorTests\ReplicatorTests.csproj", "{09D9E88B-9B0A-4842-926E-911AEC3BC741}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Replicator", "Replicator\Replicator.csproj", "{DFD64E42-4DA5-4ADE-9DBE-6E2BAC08FFBC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{09D9E88B-9B0A-4842-926E-911AEC3BC741}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09D9E88B-9B0A-4842-926E-911AEC3BC741}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09D9E88B-9B0A-4842-926E-911AEC3BC741}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFD64E42-4DA5-4ADE-9DBE-6E2BAC08FFBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFD64E42-4DA5-4ADE-9DBE-6E2BAC08FFBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFD64E42-4DA5-4ADE-9DBE-6E2BAC08FFBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFD64E42-4DA5-4ADE-9DBE-6E2BAC08FFBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

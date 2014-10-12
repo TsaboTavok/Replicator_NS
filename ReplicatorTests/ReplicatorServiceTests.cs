@@ -31,7 +31,6 @@ namespace ReplicatorTests
             using(var client1 = new ReplicationServiceTestClientHelper())
             using (var client2 = new ReplicationServiceTestClientHelper())
             {
-
                 server.Manager.SendUpdates(new ReplicatorDto());
 
                 client1.CallbackMock.Verify(r => r.UpdatesCallback(It.IsAny<ReplicatorDto>()), Times.Once);

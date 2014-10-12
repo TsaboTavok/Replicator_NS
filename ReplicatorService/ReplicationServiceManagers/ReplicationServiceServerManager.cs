@@ -8,7 +8,7 @@ namespace ReplicatorService.ReplicationServiceManagers
 {
     public class ReplicationServiceServerManager : ReplicationServiceManagerBase
     {
-        private ReplicatorService _replicatorService;
+        private ReplicatorWcfService _replicatorWcfService;
         private ServiceHost _host;
         private AutoResetEvent _autoResetEvent = new AutoResetEvent(false);
 
@@ -34,8 +34,8 @@ namespace ReplicatorService.ReplicationServiceManagers
                     var service = group.Services.Services[0];
                     var baseAddress = service.Endpoints[0].Address.AbsoluteUri.Replace(
                         service.Endpoints[0].Address.AbsolutePath, String.Empty);
-                    _replicatorService = new ReplicatorService(ReplicatorServiceCallback);
-                    _host = new ServiceHost(_replicatorService, new[] { new Uri(baseAddress) });
+                    _replicatorWcfService = new ReplicatorWcfService(ReplicatorServiceCallback);
+                    _host = new ServiceHost(_replicatorWcfService, new[] { new Uri(baseAddress) });
 
                     _host.Open();
                 }
@@ -52,7 +52,7 @@ namespace ReplicatorService.ReplicationServiceManagers
 
         protected override void SendUpdatesInternal(ReplicatorDto replicatorDto)
         {
-            _replicatorService.SendUpdates(replicatorDto);
+            _replicatorWcfService.SendUpdates(replicatorDto);
         }
 
         public override void DisposeInternal()

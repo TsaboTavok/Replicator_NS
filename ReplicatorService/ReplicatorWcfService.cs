@@ -5,11 +5,11 @@ using ReplicatorService.Callback;
 namespace ReplicatorService
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, IncludeExceptionDetailInFaults = true)]
-    public class ReplicatorService : IReplicatorService
+    internal class ReplicatorWcfService : IReplicatorService
     {
-        private List<IReplicatorServiceCallback> _addedReplicatorCallbackList;
+        private readonly List<IReplicatorServiceCallback> _addedReplicatorCallbackList;
 
-        public ReplicatorService(IReplicatorServiceCallback locaCallback)
+        public ReplicatorWcfService(IReplicatorServiceCallback locaCallback)
         {
             _addedReplicatorCallbackList = new List<IReplicatorServiceCallback>();
             _addedReplicatorCallbackList.Add(locaCallback);

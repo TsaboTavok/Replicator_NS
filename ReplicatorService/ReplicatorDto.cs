@@ -9,21 +9,13 @@ namespace ReplicatorService
         [DataMember]
         internal Guid CallerGuid { get; set; }
 
-        bool boolValue = true;
-        string stringValue = "Hello ";
+        [DataMember]
+        public string ObjectKey { get; set; }
 
         [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
+        public object Value { get; set; }
 
         [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
+        public string PropertyName { get; set; }
     }
 }
