@@ -6,13 +6,13 @@ namespace ReplicatorService
     [ServiceContract(SessionMode = SessionMode.Required, CallbackContract = typeof(IReplicatorServiceCallback))]
     public interface IReplicatorService
     {
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void RegisterForUpdates();
 
         [OperationContract(IsOneWay = true)]
         void Unregister();
 
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void SendUpdates(ReplicatorDto replicatorDto);
     }
 }

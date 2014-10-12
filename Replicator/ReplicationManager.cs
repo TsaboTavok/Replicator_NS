@@ -12,6 +12,7 @@ namespace Replicator
         private readonly object _locker = new object();
         private readonly Dictionary<string, INotifyPropertyChanged> _guidDictionary = new Dictionary<string, INotifyPropertyChanged>();
         private readonly Dictionary<INotifyPropertyChanged, string> _objectsDictionary = new Dictionary<INotifyPropertyChanged, string>();
+        private bool _supressed = false; 
 
         private readonly IReplicationServiceManager _serviceManager;
         private readonly ReplicatorDtoBuilder _dtoBuilder;
@@ -38,21 +39,38 @@ namespace Replicator
 
         void newObject_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            var changedObject = sender as INotifyPropertyChanged;
-            if (changedObject != null && _objectsDictionary.ContainsKey(changedObject))
+            lock (_locker)
             {
-                var dto = _dtoBuilder.BuildReplicatorDto(sender, _objectsDictionary[changedObject], e.PropertyName);
-                _serviceManager.SendUpdates(dto);
+                var changedObject = sender as INotifyPropertyChanged;
+                if (changedObject != null && _objectsDictionary.ContainsKey(changedObject))
+                {
+                    if (!_supressed)
+                    {
+                        var dto = _dtoBuilder.BuildReplicatorDto(sender, _objectsDictionary[changedObject],
+                            e.PropertyName);
+                        _serviceManager.SendUpdates(dto);
+                    }
+                    else
+                    {
+                        _supressed = false;
+                    }
+                }
             }
         }
 
         public void UpdatesCallback(ReplicatorDto replicatorDto)
         {
-            if (_guidDictionary.ContainsKey(replicatorDto.ObjectKey))
+            lock (_locker)
             {
-                var changingObject =_guidDictionary[replicatorDto.ObjectKey];
-                changingObject.GetType().GetProperty(replicatorDto.PropertyName).SetValue(changingObject, replicatorDto.Value);
-            }
+                if (_guidDictionary.ContainsKey(replicatorDto.ObjectKey))
+                {
+                    var changingObject = _guidDictionary[replicatorDto.ObjectKey];
+                    _supressed = true;
+                    changingObject.GetType()
+                        .GetProperty(replicatorDto.PropertyName)
+                        .SetValue(changingObject, replicatorDto.Value);
+                }
+            }   
         }
     }
 }
