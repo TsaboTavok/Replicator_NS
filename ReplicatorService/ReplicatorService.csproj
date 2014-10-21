@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Callback\EchoAwareReplicatorCallback.cs" />
     <Compile Include="Callback\IReplicatorServiceCallback.cs" />
+    <Compile Include="IReplicatorServerService.cs" />
     <Compile Include="ReplicationServiceManagers\IReplicationServiceManager.cs" />
     <Compile Include="ReplicationServiceManagers\ReplicationServiceClientManager.cs" />
     <Compile Include="ReplicationServiceManagers\ReplicationServiceManagerBase.cs" />

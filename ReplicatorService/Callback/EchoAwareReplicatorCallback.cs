@@ -21,5 +21,10 @@ namespace ReplicatorService.Callback
                 _callback.UpdatesCallback(replicatorDto);
             }
         }
+
+        public void ServerShutdownCallback()
+        {
+            _callback.ServerShutdownCallback();
+        }
     }
 }

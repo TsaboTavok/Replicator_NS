@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using ReplicatorService;
 using ReplicatorService.Callback;
 using ReplicatorService.ReplicationServiceManagers;
@@ -30,14 +31,14 @@ namespace Replicator
             {
                 if (!_objectsDictionary.ContainsKey(newObject))
                 {
-                    newObject.PropertyChanged += newObject_PropertyChanged;
+                    newObject.PropertyChanged += trackedObject_PropertyChanged;
                     _objectsDictionary.Add(newObject, key);
                     _guidDictionary.Add(key, newObject);
                 }
             }
         }
 
-        void newObject_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        void trackedObject_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             lock (_locker)
             {
@@ -73,8 +74,27 @@ namespace Replicator
             }   
         }
 
+        public event ServerShutdownEvent OnServerShutdown;
+
+        public void ServerShutdownCallback()
+        {
+            var subs = OnServerShutdown;
+            if (subs != null)
+            {
+                subs();
+            }
+            Dispose();
+        }
+
         public void Dispose()
         {
+            foreach (var obj in _objectsDictionary.Keys)
+            {
+                obj.PropertyChanged -= trackedObject_PropertyChanged;
+            }
+
+            _objectsDictionary.Clear();
+            _guidDictionary.Clear();
             _serviceManager.Dispose();
         }
     }

@@ -6,5 +6,8 @@ namespace ReplicatorService.Callback
     {
         [OperationContract(IsOneWay = true)]
         void UpdatesCallback(ReplicatorDto replicatorDto);
+
+        [OperationContract(IsOneWay = true)]
+        void ServerShutdownCallback();
     }
 }

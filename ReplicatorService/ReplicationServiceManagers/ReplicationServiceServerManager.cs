@@ -8,7 +8,7 @@ namespace ReplicatorService.ReplicationServiceManagers
 {
     public class ReplicationServiceServerManager : ReplicationServiceManagerBase
     {
-        private ReplicatorWcfService _replicatorWcfService;
+        private IReplicatorServerService _replicatorWcfService;
         private ServiceHost _host;
         private AutoResetEvent _autoResetEvent = new AutoResetEvent(false);
 
@@ -57,8 +57,11 @@ namespace ReplicatorService.ReplicationServiceManagers
 
         public override void DisposeInternal()
         {
-            if(_host != null)
+            if (_host != null)
+            {
+                _replicatorWcfService.NotifyServerShutdown();
                 _host.Close();
+            }
         }
     }
 }

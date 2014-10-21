@@ -45,6 +45,7 @@
     <Compile Include="ReplicationManagerFactory.cs" />
     <Compile Include="ReplicatorDtoBuilder.cs" />
     <Compile Include="ReplicatorManagerFactory.cs" />
+    <Compile Include="ServerShutdownEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ReplicatorService\ReplicatorService.csproj">

@@ -38,13 +38,18 @@ namespace ReplicatorService.ReplicationServiceManagers
                     ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None));
             return @group;
         }
-        
+
         public void Dispose()
         {
+            if (disposed)
+                return;
+
+            disposed = true;
             DisposeInternal();
             GC.SuppressFinalize(this);
         }
 
+        bool disposed = false;
         public abstract void DisposeInternal();
 
         ~ReplicationServiceManagerBase()

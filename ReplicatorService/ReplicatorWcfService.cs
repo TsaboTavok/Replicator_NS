@@ -5,7 +5,7 @@ using ReplicatorService.Callback;
 namespace ReplicatorService
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, IncludeExceptionDetailInFaults = true)]
-    internal class ReplicatorWcfService : IReplicatorService
+    internal class ReplicatorWcfService : IReplicatorService, IReplicatorServerService
     {
         private readonly List<IReplicatorServiceCallback> _addedReplicatorCallbackList;
 
@@ -34,6 +34,11 @@ namespace ReplicatorService
         public void SendUpdates(ReplicatorDto replicatorDto)
         {
             _addedReplicatorCallbackList.ForEach(c=>c.UpdatesCallback(replicatorDto));
+        }
+
+        public void NotifyServerShutdown()
+        {
+            _addedReplicatorCallbackList.ForEach(c => c.ServerShutdownCallback());
         }
     }
 }
