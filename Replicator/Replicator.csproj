@@ -44,7 +44,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReplicationManagerFactory.cs" />
     <Compile Include="ReplicatorDtoBuilder.cs" />
-    <Compile Include="ReplicatorManagerFactory.cs" />
     <Compile Include="ServerShutdownEvent.cs" />
   </ItemGroup>
   <ItemGroup>
